@@ -1,0 +1,32 @@
+digraph {
+	"Valorant
+07-00-00
+10-00-00" -> "League Of Legends
+09-00-00
+12-00-00"
+	"Valorant
+07-00-00
+10-00-00" -> "Valorant
+14-00-00
+17-00-00"
+	"League Of Legends
+09-00-00
+12-00-00" -> "Valorant
+07-00-00
+10-00-00"
+	"League Of Legends
+09-00-00
+12-00-00" -> "Valorant
+14-00-00
+17-00-00"
+	"Valorant
+14-00-00
+17-00-00" -> "Valorant
+07-00-00
+10-00-00"
+	"Valorant
+14-00-00
+17-00-00" -> "League Of Legends
+09-00-00
+12-00-00"
+}

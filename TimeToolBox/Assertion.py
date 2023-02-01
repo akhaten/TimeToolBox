@@ -47,8 +47,8 @@ def are_parallel(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTim
 
     def collision_without_inclusion(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
         return begin_before_than_begin(t1, t2) \
-                and finish_after_than_begin(t1, t2) \
-                and finish_before_than_finish(t1, t2)
+            and finish_after_than_begin(t1, t2) \
+            and finish_before_than_finish(t1, t2)
     
     return collision_without_inclusion(t1, t2) \
         or collision_without_inclusion(t2, t1) \

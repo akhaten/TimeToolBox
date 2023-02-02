@@ -11,44 +11,48 @@ import TimeToolBox.Time
 
 # Assertion between events
 
-def begin_before_than_begin(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+def begin_before_begin(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+    ''' t1 begin before than t2 begin
+    '''
     return t1.begin < t2.begin
 
-def begin_after_than_begin(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+def begin_after_begin(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+    ''' t1 begin after than
+    '''
     return t2.begin < t1.begin
 
-def finish_before_than_begin(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+def finish_before_begin(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
     return t1.end < t2.begin
 
-def finish_after_than_begin(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+def finish_after_begin(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
     return t2.begin < t1.end
 
-def begin_before_than_finish(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+def begin_before_finish(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
     return t1.begin < t2.end
 
-def begin_after_than_finish(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+def begin_after_finish(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
     return t2.end < t1.begin
 
-def finish_before_than_finish(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+def finish_before_finish(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
     return t1.end < t2.end
 
-def finish_after_than_finish(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
+def finish_after_finish(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
     return t2.end < t1.end
 
 def between_events(t: TimeToolBox.Time.SimpleTime, t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
-    return begin_after_than_finish(t, t1) \
-        and finish_before_than_begin(t, t2)
+    return begin_after_finish(t, t1) \
+        and finish_before_begin(t, t2)
 
 def include(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
-    return begin_after_than_begin(t1, t2) \
-        and finish_after_than_finish(t1, t2)
+    return begin_after_begin(t1, t2) \
+        and finish_after_finish(t1, t2)
 
 def are_parallel(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
 
     def collision_without_inclusion(t1: TimeToolBox.Time.SimpleTime, t2: TimeToolBox.Time.SimpleTime) -> bool:
-        return begin_before_than_begin(t1, t2) \
-            and finish_after_than_begin(t1, t2) \
-            and finish_before_than_finish(t1, t2)
+        return begin_before_begin(t1, t2) \
+            and finish_after_begin(t1, t2) \
+            and finish_before_finish(t1, t2)
     
     return collision_without_inclusion(t1, t2) \
         or collision_without_inclusion(t2, t1) \

@@ -32,7 +32,7 @@ class AssertionTest(unittest.TestCase):
         self.duration_2: datetime.timedelta = datetime.timedelta(hours=1)
 
 
-    def test_begin_before_than_begin(self):
+    def test_begin_before_begin(self):
 
         # -------------------------------------------------------
 
@@ -45,7 +45,7 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.begin_before_than_begin(
+            first=TimeToolBox.Assertion.begin_before_begin(
                 league_of_legends, valorant),
             second=False,
             msg = 'League of legend shoud not begin before Valorant'
@@ -62,14 +62,14 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.begin_before_than_begin(
+            first=TimeToolBox.Assertion.begin_before_begin(
                 league_of_legends, valorant),
             second=True,
             msg = 'League of legend shoud begin before Valorant'
         )
 
 
-    def test_begin_after_than_begin(self):
+    def test_begin_after_begin(self):
         
         # -------------------------------------------------------
 
@@ -82,7 +82,7 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.begin_after_than_begin(
+            first=TimeToolBox.Assertion.begin_after_begin(
                 league_of_legends, valorant),
             second=False,
             msg = 'League of legend shoud not begin after Valorant'
@@ -99,14 +99,14 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.begin_after_than_begin(
+            first=TimeToolBox.Assertion.begin_after_begin(
                 valorant, league_of_legends),
             second=True,
             msg = 'Valorant shoud begin after League of legend'
         )
 
 
-    def test_finish_before_than_begin(self):
+    def test_finish_before_begin(self):
 
         # -------------------------------------------------------
 
@@ -119,7 +119,7 @@ class AssertionTest(unittest.TestCase):
         )
     
         self.assertEqual(
-            first=TimeToolBox.Assertion.finish_before_than_begin(
+            first=TimeToolBox.Assertion.finish_before_begin(
                 league_of_legends, valorant),
             second=False,
             msg = 'League of legend shoud not finish before than Valorant begin'
@@ -136,14 +136,14 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.finish_before_than_begin(
+            first=TimeToolBox.Assertion.finish_before_begin(
                 league_of_legends, valorant),
             second=True,
             msg = 'League of legend shoud finish before than Valorant begin'
         )
 
 
-    def test_finish_after_than_begin(self):
+    def test_finish_after_begin(self):
 
         # -------------------------------------------------------
 
@@ -156,7 +156,7 @@ class AssertionTest(unittest.TestCase):
         )
     
         self.assertEqual(
-            first=TimeToolBox.Assertion.finish_after_than_begin(
+            first=TimeToolBox.Assertion.finish_after_begin(
                 league_of_legends, valorant),
             second=False,
             msg = 'League of legend shoud not finish after than Valorant begin'
@@ -173,14 +173,14 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.finish_after_than_begin(
+            first=TimeToolBox.Assertion.finish_after_begin(
                 valorant, league_of_legends),
             second=True,
             msg = 'Valorant shoud finish after than League of legend begin'
         )
 
 
-    def test_begin_before_than_finish(self):
+    def test_begin_before_finish(self):
 
         # -------------------------------------------------------
 
@@ -193,7 +193,7 @@ class AssertionTest(unittest.TestCase):
         )
     
         self.assertEqual(
-            first=TimeToolBox.Assertion.begin_before_than_finish(
+            first=TimeToolBox.Assertion.begin_before_finish(
                 league_of_legends, valorant),
             second=False,
             msg = 'League of legend shoud not before before than Valorant finish'
@@ -210,14 +210,14 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.begin_before_than_finish(
+            first=TimeToolBox.Assertion.begin_before_finish(
                 league_of_legends, valorant),
             second=True,
             msg = 'League of legend shoud begin before than Valorant finish'
         )
 
 
-    def test_begin_after_than_finish(self):
+    def test_begin_after_finish(self):
 
         # -------------------------------------------------------
 
@@ -230,7 +230,7 @@ class AssertionTest(unittest.TestCase):
         )
     
         self.assertEqual(
-            first=TimeToolBox.Assertion.begin_after_than_finish(
+            first=TimeToolBox.Assertion.begin_after_finish(
                 league_of_legends, valorant),
             second=False,
             msg = 'League of legend shoud not begin after than Valorant finish'
@@ -247,14 +247,14 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.begin_after_than_finish(
+            first=TimeToolBox.Assertion.begin_after_finish(
                 league_of_legends, valorant),
             second=True,
             msg = 'League of legend shoud begin after than Valorant finish'
         )
 
 
-    def test_finish_before_than_finish(self):
+    def test_finish_before_finish(self):
         
         # -------------------------------------------------------
 
@@ -267,7 +267,7 @@ class AssertionTest(unittest.TestCase):
         )
     
         self.assertEqual(
-            first=TimeToolBox.Assertion.finish_before_than_finish(
+            first=TimeToolBox.Assertion.finish_before_finish(
                 league_of_legends, valorant),
             second=False,
             msg = 'League of legend shoud not begin after than Valorant finish'
@@ -284,14 +284,14 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.finish_before_than_finish(
+            first=TimeToolBox.Assertion.finish_before_finish(
                 league_of_legends, valorant),
             second=True,
             msg = 'League of legend shoud begin after than Valorant finish'
         )
 
 
-    def test_finish_after_than_finish(self):
+    def test_finish_after_finish(self):
 
         # -------------------------------------------------------
 
@@ -304,7 +304,7 @@ class AssertionTest(unittest.TestCase):
         )
     
         self.assertEqual(
-            first=TimeToolBox.Assertion.finish_after_than_finish(
+            first=TimeToolBox.Assertion.finish_after_finish(
                 league_of_legends, valorant),
             second=False,
             msg = 'League of legend shoud not finish after than Valorant finish'
@@ -321,7 +321,7 @@ class AssertionTest(unittest.TestCase):
         )
 
         self.assertEqual(
-            first=TimeToolBox.Assertion.finish_after_than_finish(
+            first=TimeToolBox.Assertion.finish_after_finish(
                 league_of_legends, valorant),
             second=True,
             msg = 'League of legend shoud finish after than Valorant finish'

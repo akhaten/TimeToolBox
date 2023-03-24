@@ -2,7 +2,7 @@
 
 import datetime
 import typing
-import graphviz
+# import graphviz
 
 import TimeToolBox.Time
 import TimeToolBox.Assertion.SimpleTime

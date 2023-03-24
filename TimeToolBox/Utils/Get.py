@@ -17,7 +17,7 @@ def begin_of_day(date_time: datetime.datetime) -> datetime.datetime:
     )
 
 def end_of_day(date_time: datetime.datetime) -> datetime.datetime:
-    return begin_of_day(date_time) + datetime.timedelta(days=1)
+    return begin_of_day(date_time) + datetime.timedelta(hours=23, minutes=59, seconds=59)
 
 def zero_timedelta() -> datetime.timedelta:
     return datetime.timedelta()

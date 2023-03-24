@@ -5,7 +5,7 @@ pkgs.python310Packages.buildPythonPackage {
 	src = ./.;
 	propagatedBuildInputs = with pkgs; [
 		python310
-        python310Packages.graphviz
+        # python310Packages.graphviz
 	];
 	doCheck = false;
 }

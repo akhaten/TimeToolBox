@@ -55,39 +55,46 @@ if __name__ == '__main__':
     day.add(
         TimeToolBox.Time.SimpleEvent(
             infos = Information(name='Valorant'),
-            begin = datetime.datetime(year=2022, month=1, day=1, hour=7, minute=0),
+            begin = datetime.datetime(year=2022, month=1, day=1, hour=0, minute=0),
             duration = datetime.timedelta(hours=3)
-        )
+        ),
+        False
     )
 
-
     day.add(
-            TimeToolBox.Time.SimpleEvent(
+        TimeToolBox.Time.SimpleEvent(
             infos = Information(name='League Of Legends'),
             begin = datetime.datetime(year=2022, month=1, day=1, hour=9, minute=0),
             duration = datetime.timedelta(hours=3)
-        )
+        ),
+        False
     )
-
 
     day.add(
         TimeToolBox.Time.SimpleEvent(
             infos = Information(name='Valorant'),
             begin = datetime.datetime(year=2022, month=1, day=1, hour=14, minute=0),
             duration = datetime.timedelta(hours=3)
-        )
+        ),
+        False
     )
 
 
-    graph: graphviz.graphs.Digraph = day.export_graph()
+    # graph: graphviz.graphs.Digraph = day.export_graph()
 
     # graph.render(view=True)
-    graph.save(directory='tests/Calendar')
-    graph.render(directory='tests/Calendar')
+    # graph.save(directory='tests/Calendar')
+    # graph.render(directory='tests/Calendar')
 
+    free_time: list[TimeToolBox.Time.SimpleTime] = day.get_not_free_times()
+
+    for ft in free_time:
+        print(ft.begin, ft.end)
+
+    print('\n')
     free_time: list[TimeToolBox.Time.SimpleTime] = day.get_free_times()
 
-    # for ft in free_time:
-    #     print(ft.begin, ft.end)
+    for ft in free_time:
+        print(ft.begin, ft.end)
 
 

@@ -199,7 +199,6 @@ class SimpleCalendar:
         
         date: datetime.date = simple_event.begin.date()
         day = self.create_day(date) if not(self.day_exists(date)) else self.get_day(date)
-        day.add(simple_event, True)
         added: bool = day.add(simple_event)
 
         return added

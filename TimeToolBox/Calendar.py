@@ -2,7 +2,6 @@
 
 import datetime
 import typing
-# import graphviz
 
 import TimeToolBox.Time
 import TimeToolBox.Assertion.SimpleTime
@@ -10,16 +9,23 @@ import TimeToolBox.Utils.Get
 
 
 
-
 class Day:
 
-    
+
     class Event:
 
         def __init__(self, simple_event: TimeToolBox.Time.SimpleEvent, check_collision: bool) -> None:
             self.simple_event: TimeToolBox.Time.SimpleEvent = simple_event
             self.parallel: list[Day.Event] = []
             self.check_collision = check_collision
+            self.nb_transitive_parallel = 0
+
+
+
+    class EventNode(Event):
+
+        def __init__(self, simple_event: TimeToolBox.Time.SimpleEvent, check_collision: bool) -> None:
+            Day.Event.__init__(self, simple_event, check_collision)
             self.is_explore = False
 
         def is_collision(self, simple_event: TimeToolBox.Time.SimpleEvent) -> bool:
@@ -32,42 +38,31 @@ class Day:
 
             min_begin = self.simple_event.begin
             max_end = self.simple_event.end
-            # print(len(self.parallel))
+
             for event in self.parallel:
-                if not(event.is_explore):
-                    event.is_explore = True
-                    res_min, res_max = event.explore()
-                    # print('ok', min_begin, res_min, min(min_begin, res_min))
-                    # print('ok', max_end, res_max, max(max_end, res_max))
+                current_explore: Day.EventNode = event
+                if not(current_explore.is_explore):
+                    current_explore.is_explore = True
+                    res_min, res_max = current_explore.explore()
                     min_begin = min(min_begin, res_min)
                     max_end = max(max_end, res_max)
-                    # print('update', min_begin)
-                    # print('update', max_end)
-
 
             return min_begin, max_end
-
-
         
-        # def get_extremum_parallel(self) -> tuple[datetime.datetime, datetime.datetime]:
+        def increment_transitive_parallel(self) -> None:
 
-        #     min_begin = self.simple_event.begin
-        #     max_end = self.simple_event.end
-
-        #     if len(self.parallel) == 0:
-        #         return min_begin, max_end
-
-        #     for event_parallel in self.parallel:
-        #         min_begin = min(event_parallel.simple_event.end, min_begin)
-        #         max_end = max(event_parallel.simple_event.end, max_end)
-        #         event_parallel.is_explore = True
-
-        #     return min_begin
+            
+            for event in self.parallel:
+                current_explore: Day.EventNode = event
+                if not(current_explore.is_explore):
+                    current_explore.is_explore = True
+                    current_explore.increment_transitive_parallel()
+                    
 
 
     def __init__(self, date: datetime.date):
         self.date: datetime.date = date
-        self.events: list[Day.Event] = []
+        self.events: list[Day.EventNode] = []
 
     def get_not_free_times(self) -> list[TimeToolBox.Time.SimpleTime]:
 
@@ -77,7 +72,6 @@ class Day:
             if not(event.is_explore):
                 event.is_explore = True
                 begin, end = event.explore()
-                # print(begin, end)
                 not_free_times.append(TimeToolBox.Time.SimpleTime.make(begin, end))
 
         self.reset_exploration()
@@ -90,19 +84,13 @@ class Day:
             event.is_explore = False
     
 
-    def get_event_parallel(self, simple_event: TimeToolBox.Time.SimpleEvent) -> 'list[Day.Event]':
-        parallels: list[Day.Event] = []
-        # print(simple_event.begin, simple_event.end)
-        # print('Parallel :')
+    def get_event_parallel(self, simple_event: TimeToolBox.Time.SimpleEvent) -> 'list[Day.EventNode]':
+        parallels: list[Day.EventNode] = []
+    
         for event in self.events:
             if event.is_collision(simple_event):
-                # print(
-                #     event.simple_event.begin,
-                #     event.simple_event.end
-                # )
                 parallels.append(event)
 
-        # print('\n')
         return parallels
 
     
@@ -112,17 +100,6 @@ class Day:
         added: bool = False
         
         parallel = self.get_event_parallel(simple_event)
-        # to_add = Day.Event(simple_event, check_collision=True)
-        # to_add.parallel = parallel.copy()
-        # self.events.append(to_add)
-
-        # for event_parallel in parallel:
-        #     event_parallel.parallel.append(to_add)
-
-        # added = True
-        # print(parallel)
-        # print(to_add.parallel)
-        # print(len(to_add.parallel))
 
         if check_collision == False:
             
@@ -132,6 +109,7 @@ class Day:
 
             for event_parallel in parallel:
                 event_parallel.parallel.append(to_add)
+
 
             added = True
 
@@ -152,9 +130,6 @@ class Day:
                     event_parallel.parallel.append(to_add)
 
                 added = True
-                # print(parallel)
-                # print(to_add.parallel)
-                # print(len(to_add.parallel))
         
         return added
 

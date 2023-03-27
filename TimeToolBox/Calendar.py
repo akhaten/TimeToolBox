@@ -14,17 +14,15 @@ class Day:
 
     class Event:
 
-        def __init__(self, simple_event: TimeToolBox.Time.SimpleEvent, check_collision: bool) -> None:
+        def __init__(self, simple_event: TimeToolBox.Time.SimpleEvent, check_collision: bool = False) -> None:
             self.simple_event: TimeToolBox.Time.SimpleEvent = simple_event
             self.parallel: list[Day.Event] = []
             self.check_collision = check_collision
-            self.nb_transitive_parallel = 0
-
 
 
     class EventNode(Event):
 
-        def __init__(self, simple_event: TimeToolBox.Time.SimpleEvent, check_collision: bool) -> None:
+        def __init__(self, simple_event: TimeToolBox.Time.SimpleEvent, check_collision: bool = False) -> None:
             Day.Event.__init__(self, simple_event, check_collision)
             self.is_explore = False
 
@@ -48,16 +46,6 @@ class Day:
                     max_end = max(max_end, res_max)
 
             return min_begin, max_end
-        
-        def increment_transitive_parallel(self) -> None:
-
-            
-            for event in self.parallel:
-                current_explore: Day.EventNode = event
-                if not(current_explore.is_explore):
-                    current_explore.is_explore = True
-                    current_explore.increment_transitive_parallel()
-                    
 
 
     def __init__(self, date: datetime.date):
@@ -95,7 +83,7 @@ class Day:
 
     
 
-    def add(self, simple_event: TimeToolBox.Time.SimpleEvent, check_collision: bool) -> bool:
+    def add(self, simple_event: TimeToolBox.Time.SimpleEvent, check_collision: bool = False) -> bool:
 
         added: bool = False
         
@@ -198,30 +186,6 @@ class Day:
             )
 
         return free_times
-       
-
-
-    # def export_graph(self) -> graphviz.graphs.Digraph:
-
-    #     graph: graphviz.graphs.Digraph = graphviz.graphs.Digraph(filename=str(self.date))
-
-    #     # for node in self.nodes:
-    #     #     event: TimeToolBox.Time.SimpleEvent = node.time
-    #     #     e1_exp : TimeToolBox.Time.SimpleEvent = node.time.export()
-    #     #     label: str = str(event.infos) + '\n' + str(event.begin) + '\n' + str(event.duration)
-    #     #     graph.node(name=str(label), label=label)
-
-     
-    #     for node in self.nodes:
-    #         node_1: str = str(node.time.infos) + '\n' + str(node.time.begin.time()) + '\n' + str(node.time.end.time())
-    #         for neigh in node.parallel:
-    #             node_2: str = str(neigh.time.infos) + '\n' + str(neigh.time.begin.time()) + '\n' + str(neigh.time.end.time())
-    #             graph.edge(
-    #                 tail_name=node_1.replace(':', '-'), 
-    #                 head_name=node_2.replace(':', '-')
-    #             )
-
-    #     return graph
 
 
 class SimpleCalendar:
@@ -231,11 +195,12 @@ class SimpleCalendar:
         self.days: list[Day] = []
 
 
-    def add(self, time: TimeToolBox.Time.SimpleEvent) -> bool:
+    def add(self, simple_event: TimeToolBox.Time.SimpleEvent) -> bool:
         
-        date: datetime.date = time.begin.date()
-        day_to_add: Day = self.__get_day(date)
-        added: bool = day_to_add.add(time)
+        date: datetime.date = simple_event.begin.date()
+        day = self.create_day(date) if not(self.day_exists(date)) else self.get_day(date)
+        day.add(simple_event, True)
+        added: bool = day.add(simple_event)
 
         return added
 
@@ -256,23 +221,37 @@ class SimpleCalendar:
         return False
 
 
-    def __get_day(self, date: datetime.date) -> Day:
+    def get_events(self, date: datetime.date) -> list[TimeToolBox.Time.SimpleEvent] :
+        day = self.get_day(date)
+        return [ day_event.simple_event for day_event in day.events ]
+
+
+    
+    def create_day(self, date: datetime.date) -> Day:
 
         index: int = 0
+
+        day_created = Day(date)
         
         if self.days == []:
-            self.days.append(Day(date))
+            self.days.append(day_created)
         else:
-            while (index < len(self.days)) and (not find) and (date <= self.days[index].date):
-                if self.days[index].date == date:
-                    find = True
-                else:
-                    index += 1
+            while (index < len(self.days)) and (date <= self.days[index].date):
+                index += 1
             
-        if not find:
-            self.days.insert(index, Day(date))
         
-        return self.days[index]
+        self.days.insert(index, day_created)
+
+        return day_created
+    
+
+    def get_day(self, date: datetime.date) -> Day:
+
+        for day in self.days:
+            if day.date == date:
+                return date
+            
+        raise AssertionError("Day not found")
 
 
 

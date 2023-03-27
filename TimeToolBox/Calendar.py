@@ -222,6 +222,8 @@ class SimpleCalendar:
 
     def get_events(self, date: datetime.date) -> list[TimeToolBox.Time.SimpleEvent] :
         day = self.get_day(date)
+        if day is None:
+            return []
         return [ day_event.simple_event for day_event in day.events ]
 
 
@@ -250,7 +252,7 @@ class SimpleCalendar:
             if day.date == date:
                 return day
             
-        raise AssertionError("Day not found")
+        raise None
 
 
 

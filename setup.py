@@ -12,7 +12,7 @@ setup(
     version = 'v0.1.0',
     author = 'Jessy Khafif',
     author_email = 'khafifjessy.github@gmail.com',
-    packages = find_packages('TimeToolBox'),
+    packages = find_packages(),
     license = 'MIT',
     install_requires=requirements
 )

@@ -91,7 +91,7 @@ class Day:
 
         if check_collision == False:
             
-            to_add = Day.Event(simple_event, check_collision=False)
+            to_add = Day.EventNode(simple_event, check_collision=False)
             to_add.parallel = parallel.copy()
             self.events.append(to_add)
 
@@ -110,7 +110,7 @@ class Day:
             
             else:
 
-                to_add = Day.Event(simple_event, check_collision=True)
+                to_add = Day.EventNode(simple_event, check_collision=True)
                 to_add.parallel = parallel.copy()
                 self.events.append(to_add)
 
@@ -249,7 +249,7 @@ class SimpleCalendar:
 
         for day in self.days:
             if day.date == date:
-                return date
+                return day
             
         raise AssertionError("Day not found")
 

@@ -1,7 +1,6 @@
 
 import sys
 import datetime
-import graphviz
 
 sys.path.append('.')
 
@@ -48,36 +47,42 @@ if __name__ == '__main__':
         duration = datetime.timedelta(hours=3)
     )
 
-    day: TimeToolBox.Calendar.Day = TimeToolBox.Calendar.Day(
-        date = valorant.begin.date()
-    )
+    calendar = TimeToolBox.Calendar.SimpleCalendar()
+    calendar.add(valorant)
+    calendar.add(league_of_legends)
+    calendar.add(valorant2)
 
-    day.add(
-        TimeToolBox.Time.SimpleEvent(
-            infos = Information(name='Valorant'),
-            begin = datetime.datetime(year=2022, month=1, day=1, hour=0, minute=0),
-            duration = datetime.timedelta(hours=3)
-        ),
-        False
-    )
+    print(len(calendar.get_events(datetime.date(2022, 1, 1))))
+    # day: TimeToolBox.Calendar.Day = TimeToolBox.Calendar.Day(
+    #     date = valorant.begin.date()
+    # )
 
-    day.add(
-        TimeToolBox.Time.SimpleEvent(
-            infos = Information(name='League Of Legends'),
-            begin = datetime.datetime(year=2022, month=1, day=1, hour=9, minute=0),
-            duration = datetime.timedelta(hours=3)
-        ),
-        False
-    )
+    # day.add(
+    #     TimeToolBox.Time.SimpleEvent(
+    #         infos = Information(name='Valorant'),
+    #         begin = datetime.datetime(year=2022, month=1, day=1, hour=0, minute=0),
+    #         duration = datetime.timedelta(hours=3)
+    #     ),
+    #     False
+    # )
 
-    day.add(
-        TimeToolBox.Time.SimpleEvent(
-            infos = Information(name='Valorant'),
-            begin = datetime.datetime(year=2022, month=1, day=1, hour=14, minute=0),
-            duration = datetime.timedelta(hours=3)
-        ),
-        False
-    )
+    # day.add(
+    #     TimeToolBox.Time.SimpleEvent(
+    #         infos = Information(name='League Of Legends'),
+    #         begin = datetime.datetime(year=2022, month=1, day=1, hour=9, minute=0),
+    #         duration = datetime.timedelta(hours=3)
+    #     ),
+    #     False
+    # )
+
+    # day.add(
+    #     TimeToolBox.Time.SimpleEvent(
+    #         infos = Information(name='Valorant'),
+    #         begin = datetime.datetime(year=2022, month=1, day=1, hour=14, minute=0),
+    #         duration = datetime.timedelta(hours=3)
+    #     ),
+    #     False
+    # )
 
 
     # graph: graphviz.graphs.Digraph = day.export_graph()
@@ -86,15 +91,15 @@ if __name__ == '__main__':
     # graph.save(directory='tests/Calendar')
     # graph.render(directory='tests/Calendar')
 
-    free_time: list[TimeToolBox.Time.SimpleTime] = day.get_not_free_times()
+    # free_time: list[TimeToolBox.Time.SimpleTime] = day.get_not_free_times()
 
-    for ft in free_time:
-        print(ft.begin, ft.end)
+    # for ft in free_time:
+    #     print(ft.begin, ft.end)
 
-    print('\n')
-    free_time: list[TimeToolBox.Time.SimpleTime] = day.get_free_times()
+    # print('\n')
+    # free_time: list[TimeToolBox.Time.SimpleTime] = day.get_free_times()
 
-    for ft in free_time:
-        print(ft.begin, ft.end)
+    # for ft in free_time:
+    #     print(ft.begin, ft.end)
 
 

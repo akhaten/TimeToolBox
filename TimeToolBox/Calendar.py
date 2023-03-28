@@ -252,7 +252,7 @@ class SimpleCalendar:
             if day.date == date:
                 return day
             
-        raise None
+        return None
 
 
 
